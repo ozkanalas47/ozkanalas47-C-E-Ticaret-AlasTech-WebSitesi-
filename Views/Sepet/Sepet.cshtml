@@ -1,0 +1,120 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.SepetGorunumModeli>
+
+@{
+    ViewData["Title"] = "Sepet";
+    decimal toplam = Model.Sum(s => s.Toplam);
+}
+
+<style>
+    .sepet-konteyner {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .sepet-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .sepet-tablosu th, .sepet-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .sepet-tablosu th {
+            background-color: #f8f9fa;
+        }
+
+        .sepet-tablosu img {
+            max-width: 50px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+    .kaldir-buton {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .kaldir-buton:hover {
+            background-color: #c82333;
+        }
+
+    .toplam {
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .odeme-buton {
+        display: block;
+        width: 200px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+        .odeme-buton:hover {
+            background-color: #218838;
+        }
+</style>
+
+<div class="sepet-konteyner">
+    <h2>Sepetim</h2>
+
+    @if (Model.Any())
+    {
+        <table class="sepet-tablosu">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Ad</th>
+                    <th>Birim Fiyat</th>
+                    <th>Miktar</th>
+                    <th>Toplam</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var kalem in Model)
+                {
+                    <tr>
+                        <td><img src="@kalem.ResimUrl" alt="@kalem.UrunAdi" /></td>
+                        <td>@kalem.UrunAdi</td>
+                        <td>@kalem.BirimFiyat TL</td>
+                        <td>@kalem.Miktar</td>
+                        <td>@kalem.Toplam TL</td>
+                        <td>
+                            <form asp-controller="Sepet" asp-action="Kaldir" method="post">
+                                <input type="hidden" name="id" value="@kalem.Id" />
+                                <button type="submit" class="kaldir-buton">Kaldır</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="toplam">
+            Toplam: @toplam TL
+        </div>
+
+        <a asp-controller="Siparis" asp-action="Odeme" class="odeme-buton">Ödeme Yap</a>
+    }
+    else
+    {
+        <p>Sepetinizde ürün bulunmamaktadır.</p>
+    }
+</div>

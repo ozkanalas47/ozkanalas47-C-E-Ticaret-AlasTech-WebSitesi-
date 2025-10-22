@@ -1,0 +1,96 @@
+﻿@model AlasTech.Models.GorunumModelleri.YoneticiPanelGorunumModeli
+
+@{
+    ViewData["Title"] = "Yönetici Kontrol Paneli";
+}
+
+<style>
+    .panel {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .stat {
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<h2>Yönetici Kontrol Paneli</h2>
+
+@if (TempData["Mesaj"] != null)
+{
+    <div class="alert alert-success" style="text-align: center; padding: 10px; margin-bottom: 20px;">
+        @TempData["Mesaj"]
+    </div>
+}
+
+<div class="panel">
+    <div class="stats">
+        <div class="stat">
+            <h3>Toplam Ürün Sayısı</h3>
+            <p>@Model.ToplamUrunSayisi</p>
+        </div>
+        <div class="stat">
+            <h3>Toplam Sipariş Sayısı</h3>
+            <p>@Model.ToplamSiparisSayisi</p>
+        </div>
+        <div class="stat">
+            <h3>Toplam Kullanıcı Sayısı</h3>
+            <p>@Model.ToplamKullaniciSayisi</p>
+        </div>
+        <div class="stat">
+            <h3>Toplam Ciro</h3>
+            <p>@Model.ToplamCiro TL</p>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <a asp-action="KategoriEkle" asp-controller="Yonetici" class="btn">Kategori Ekle</a>
+        <a asp-action="SaticiEkle" asp-controller="Yonetici" class="btn" style="margin-left: 10px;">Satıcı Ekle</a>
+        <a asp-action="KullaniciYonetimi" asp-controller="Yonetici" class="btn" style="margin-left: 10px;">Kullanıcı Yönetimi</a>
+        <a asp-action="UrunYonetimi" asp-controller="Yonetici" class="btn" style="margin-left: 10px;">Ürün Yönetimi</a>
+        <a asp-action="SiparisYonetimi" asp-controller="Yonetici" class="btn" style="margin-left: 10px;">Sipariş Yönetimi</a>
+    </div>
+</div>

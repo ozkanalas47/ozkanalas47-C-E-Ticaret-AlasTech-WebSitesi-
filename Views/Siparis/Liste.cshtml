@@ -1,0 +1,86 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.SiparisGorunumModeli>
+
+@{
+    ViewData["Title"] = "Siparişlerim";
+}
+
+<style>
+    .siparis-konteyner {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .siparis-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        .siparis-tablosu th, .siparis-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .siparis-tablosu th {
+            background-color: #f8f9fa;
+        }
+
+        .siparis-tablosu a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .siparis-tablosu a:hover {
+                text-decoration: underline;
+            }
+
+    .mesaj {
+        color: #28a745;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="siparis-konteyner">
+    <h2>Siparişlerim</h2>
+
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="mesaj">
+            @TempData["Mesaj"]
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <table class="siparis-tablosu">
+            <thead>
+                <tr>
+                    <th>Sipariş ID</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                    <th>Toplam</th>
+                    <th>Detay</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var siparis in Model)
+                {
+                    <tr>
+                        <td>@siparis.Id</td>
+                        <td>@siparis.Tarih.ToShortDateString()</td>
+                        <td>@siparis.Durum</td>
+                        <td>@siparis.Toplam TL</td>
+                        <td><a asp-controller="Siparis" asp-action="Detay" asp-route-id="@siparis.Id">Detay</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Henüz siparişiniz bulunmamaktadır.</p>
+    }
+</div>

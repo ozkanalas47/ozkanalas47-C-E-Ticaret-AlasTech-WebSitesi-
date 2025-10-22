@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Hata";
+}
+
+<style>
+    .hata-konteyner {
+        max-width: 600px;
+        margin: 100px auto;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+        .hata-konteyner h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hata-konteyner a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .hata-konteyner a:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+<div class="hata-konteyner">
+    <h1>Hata!</h1>
+    <p>Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.</p>
+    <a asp-controller="Anasayfa" asp-action="Index">Ana Sayfaya Dön</a>
+</div>

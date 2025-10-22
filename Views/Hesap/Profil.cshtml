@@ -1,0 +1,128 @@
+﻿@model AlasTech.Models.Varliklar.Kullanici
+
+@{
+    ViewData["Title"] = "Profil";
+}
+
+<style>
+    .profil-konteyner {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .profil-bilgi {
+        margin-bottom: 30px;
+    }
+
+        .profil-bilgi h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+    .siparisler {
+        margin-top: 30px;
+    }
+
+    .siparis-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+        .siparis-tablosu th, .siparis-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .siparis-tablosu th {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .siparis-tablosu a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .siparis-tablosu a:hover {
+                text-decoration: underline;
+            }
+
+    .duzenle-buton {
+        margin-top: 20px;
+        display: block; /* Butonun görünmesini garantile */
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="profil-konteyner">
+    <div class="profil-bilgi">
+        <h2>@Model.AdSoyad</h2>
+        <p><strong>Kullanıcı Adı:</strong> @Model.KullaniciAdi</p>
+        <p><strong>E-posta:</strong> @Model.Eposta</p>
+        @if (Model.SaticiProfili != null)
+        {
+            <p><strong>Mağaza Adı:</strong> @Model.SaticiProfili.MagazaAdi</p>
+            <p><strong>Adres:</strong> @Model.SaticiProfili.Adres</p>
+            <p><strong>Telefon:</strong> @Model.SaticiProfili.Telefon</p>
+        }
+        <div class="duzenle-buton">
+            <a asp-action="Duzenle" asp-controller="Hesap" class="btn">Profili Düzenle</a>
+        </div>
+    </div>
+
+    <div class="siparisler">
+        <h3>Siparişlerim</h3>
+        @if (Model.Siparisler.Any())
+        {
+            <table class="siparis-tablosu">
+                <thead>
+                    <tr>
+                        <th>Sipariş ID</th>
+                        <th>Tarih</th>
+                        <th>Durum</th>
+                        <th>Toplam</th>
+                        <th>Detay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var siparis in Model.Siparisler)
+                    {
+                        <tr>
+                            <td>@siparis.Id</td>
+                            <td>@siparis.Tarih.ToShortDateString()</td>
+                            <td>@siparis.Durum</td>
+                            <td>@siparis.Toplam TL</td>
+                            <td><a asp-controller="Siparis" asp-action="Detay" asp-route-id="@siparis.Id">Detay</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Henüz siparişiniz bulunmamaktadır.</p>
+        }
+    </div>
+</div>

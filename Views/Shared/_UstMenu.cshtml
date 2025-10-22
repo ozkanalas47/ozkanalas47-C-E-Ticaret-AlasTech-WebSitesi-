@@ -1,0 +1,150 @@
+﻿<style>
+    .ust-menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+    .navigasyon {
+        display: flex;
+        gap: 20px;
+    }
+
+        .navigasyon a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+            .navigasyon a:hover {
+                background-color: #0056b3;
+            }
+
+    .arama-cubugu {
+        display: flex;
+        align-items: center;
+    }
+
+        .arama-cubugu input[type="text"] {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .arama-cubugu button {
+            padding: 5px 10px;
+            border: none;
+            background-color: #f8f9fa;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+            .arama-cubugu button:hover {
+                background-color: #e9ecef;
+            }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-toggle {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+        .dropdown-toggle:hover {
+            background-color: #0056b3;
+        }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 5px;
+    }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 0;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+
+<div class="ust-menu">
+    <div class="logo">
+        <a asp-controller="Anasayfa" asp-action="Index">AlasTech</a>
+    </div>
+
+    <div class="arama-cubugu">
+        <form asp-controller="Urun" asp-action="Ara" method="get">
+            <input type="text" name="kelime" placeholder="Ürün ara..." />
+            <button type="submit">Ara</button>
+        </form>
+    </div>
+
+    <div class="navigasyon">
+        <div class="dropdown">
+            <a class="dropdown-toggle" asp-controller="Urun" asp-action="Liste">Kategoriler</a>
+            <div class="dropdown-content">
+                @if (ViewBag.Kategoriler != null)
+                {
+                    foreach (var kategori in ViewBag.Kategoriler)
+                    {
+                        <a asp-controller="Urun" asp-action="Liste" asp-route-kategoriId="@kategori.Id">@kategori.Adi</a>
+                    }
+                }
+                else
+                {
+                    <a href="#">Kategori bulunamadı</a>
+                }
+            </div>
+        </div>
+        <a asp-controller="Favori" asp-action="Index">Favoriler</a>
+        <a asp-controller="Sepet" asp-action="Sepet">Sepet</a>
+        @if (Context.Session.GetString("KullaniciId") != null)
+        {
+            <a asp-controller="Hesap" asp-action="Profil">@Context.Session.GetString("AdSoyad")</a>
+            @if (Context.Session.GetString("Rol") == "Yonetici")
+            {
+                <a asp-controller="Yonetici" asp-action="KontrolPaneli">Yönetici Paneli</a>
+            }
+            @if (Context.Session.GetString("Rol") == "Satici")
+            {
+                <a asp-controller="Satici" asp-action="KontrolPaneli">Satıcı Paneli</a>
+            }
+            <a asp-controller="Hesap" asp-action="Cikis">Çıkış</a>
+        }
+        else
+        {
+            <a asp-controller="Hesap" asp-action="Giris">Giriş</a>
+            <a asp-controller="Hesap" asp-action="Kayit">Kayıt Ol</a>
+        }
+    </div>
+</div>

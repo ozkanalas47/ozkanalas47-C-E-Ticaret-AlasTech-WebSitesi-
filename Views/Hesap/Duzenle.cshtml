@@ -1,0 +1,135 @@
+﻿@model AlasTech.Models.GorunumModelleri.ProfilGorunumModeli
+
+@{
+    ViewData["Title"] = "Profili Düzenle";
+}
+
+<style>
+    .container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-left: 10px;
+        text-decoration: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+
+<h2>Profili Düzenle</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="container">
+    <form asp-action="Duzenle" asp-controller="Hesap" method="post">
+        <div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="KullaniciAdi" class="control-label">Kullanıcı Adı</label>
+            <input asp-for="KullaniciAdi" class="form-control" />
+            <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Eposta" class="control-label">E-posta</label>
+            <input asp-for="Eposta" class="form-control" />
+            <span asp-validation-for="Eposta" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdSoyad" class="control-label">Ad Soyad</label>
+            <input asp-for="AdSoyad" class="form-control" />
+            <span asp-validation-for="AdSoyad" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="MevcutSifre" class="control-label">Mevcut Şifre</label>
+            <input asp-for="MevcutSifre" class="form-control" type="password" />
+            <span asp-validation-for="MevcutSifre" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="YeniSifre" class="control-label">Yeni Şifre</label>
+            <input asp-for="YeniSifre" class="form-control" type="password" />
+            <span asp-validation-for="YeniSifre" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="YeniSifreTekrar" class="control-label">Yeni Şifre Tekrar</label>
+            <input asp-for="YeniSifreTekrar" class="form-control" type="password" />
+            <span asp-validation-for="YeniSifreTekrar" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="Profil" asp-controller="Hesap" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

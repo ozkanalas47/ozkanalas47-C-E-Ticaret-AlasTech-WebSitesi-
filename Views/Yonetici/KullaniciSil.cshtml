@@ -1,0 +1,97 @@
+﻿@model AlasTech.Models.Varliklar.Kullanici
+
+@{
+    ViewData["Title"] = "Kullanıcı Sil";
+}
+
+<style>
+    .silme-formu {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+        .silme-formu h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .form-grup {
+        margin-bottom: 15px;
+    }
+
+        .form-grup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-grup input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .sil-buton {
+        width: 100%;
+        padding: 10px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .sil-buton:hover {
+            background-color: #c82333;
+        }
+
+    .geri-buton {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+        .geri-buton:hover {
+            background-color: #0056b3;
+        }
+
+    .hata-mesaj {
+        color: #dc3545;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="silme-formu">
+    <h2>Kullanıcı Sil</h2>
+
+    @if (!string.IsNullOrEmpty(TempData["HataMesaj"] as string))
+    {
+        <div class="hata-mesaj">
+            @TempData["HataMesaj"]
+        </div>
+    }
+
+    <p>Kullanıcıyı silmek istediğinizden emin misiniz?</p>
+    <p><strong>Kullanıcı Adı:</strong> @Model.KullaniciAdi</p>
+    <p><strong>E-posta:</strong> @Model.Eposta</p>
+
+    <form asp-controller="Yonetici" asp-action="KullaniciSil" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-grup">
+            <label>Doğrulama (silmek için "evet" yazın):</label>
+            <input type="text" name="confirm" required />
+        </div>
+        <button type="submit" class="sil-buton">Kullanıcıyı Sil</button>
+    </form>
+
+    <a asp-controller="Yonetici" asp-action="KullaniciYonetimi" class="geri-buton">Geri Dön</a>
+</div>

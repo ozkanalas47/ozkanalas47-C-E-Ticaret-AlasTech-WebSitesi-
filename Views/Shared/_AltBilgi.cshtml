@@ -1,0 +1,54 @@
+﻿<style>
+    .altbilgi {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+        .altbilgi div {
+            flex: 1;
+            min-width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .altbilgi h4 {
+            margin-bottom: 10px;
+        }
+
+        .altbilgi a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+            .altbilgi a:hover {
+                color: white;
+            }
+</style>
+
+<div class="altbilgi">
+    <div>
+        <h4>Hakkımızda</h4>
+        <p>AlasTech, en iyi ürünleri uygun fiyatlarla sunar.</p>
+    </div>
+    <div>
+        <h4>Bağlantılar</h4>
+        <a asp-controller="Anasayfa" asp-action="Index">Ana Sayfa</a>
+        <a asp-controller="Urun" asp-action="Liste">Ürünler</a>
+        <a asp-controller="Hesap" asp-action="Giris">Giriş</a>
+    </div>
+    <div>
+        <h4>İletişim</h4>
+        <p>E-posta: destek@alastech.com</p>
+        <p>Telefon: 555-123-4567</p>
+    </div>
+</div>
+
+<p class="text-center mt-3">&copy; 2025 AlasTech. Tüm hakları saklıdır.</p>

@@ -1,0 +1,418 @@
+﻿@model AlasTech.Models.GorunumModelleri.UrunGorunumModeli
+
+@{
+    ViewData["Title"] = @Model.Ad;
+}
+
+<style>
+    :root {
+        --primary-color: #3498db;
+        --secondary-color: #2ecc71;
+        --danger-color: #e74c3c;
+        --warning-color: #f39c12;
+        --dark-color: #34495e;
+        --light-color: #ecf0f1;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+    }
+
+    .urun-detay-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .urun-detay {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+
+    .urun-resim-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .urun-resim {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        transition: var(--transition);
+    }
+
+        .urun-resim:hover {
+            transform: scale(1.02);
+        }
+
+    .urun-bilgi {
+        flex: 1;
+        padding: 0 15px;
+    }
+
+    .urun-baslik {
+        color: var(--dark-color);
+        margin-bottom: 15px;
+        font-size: 1.8rem;
+    }
+
+    .urun-fiyat {
+        color: var(--danger-color);
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 15px 0;
+    }
+
+    .urun-aciklama {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .urun-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+        .urun-meta p {
+            background-color: var(--light-color);
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+    .butonlar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin: 25px 0;
+    }
+
+    .urun-btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .urun-btn i {
+            font-size: 1.1rem;
+        }
+
+        .urun-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+
+    .sepete-ekle {
+        background-color: var(--secondary-color);
+        color: white;
+    }
+
+        .sepete-ekle:hover {
+            background-color: #27ae60;
+        }
+
+    .favori-ekle {
+        background-color: var(--danger-color);
+        color: white;
+    }
+
+        .favori-ekle:hover {
+            background-color: #c0392b;
+        }
+
+    .puanlama {
+        margin: 30px 0;
+        padding: 20px;
+        background-color: var(--light-color);
+        border-radius: var(--border-radius);
+    }
+
+    .puanlama-baslik {
+        color: var(--dark-color);
+        margin-bottom: 15px;
+    }
+
+    .puanlama-sira {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    .yildizlar {
+        color: var(--warning-color);
+        font-size: 1.3rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        transition: var(--transition);
+    }
+
+        .yildizlar:hover {
+            transform: scale(1.1);
+        }
+
+    .puan-sayi {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+
+    .mesaj {
+        color: var(--secondary-color);
+        margin: 15px 0;
+        padding: 10px;
+        background-color: rgba(46, 204, 113, 0.1);
+        border-radius: var(--border-radius);
+        text-align: center;
+    }
+
+    .yorumlar-container {
+        margin-top: 40px;
+    }
+
+    .yorumlar-baslik {
+        color: var(--dark-color);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--light-color);
+    }
+
+    .yorum-liste {
+        margin-bottom: 30px;
+    }
+
+    .yorum {
+        padding: 20px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+        .yorum:last-child {
+            border-bottom: none;
+        }
+
+    .yorum-kullanici {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .yorum-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .yorum-bilgi {
+        flex: 1;
+    }
+
+    .yorum-kullanici-ad {
+        font-weight: bold;
+        margin: 0;
+        color: var(--dark-color);
+    }
+
+    .yorum-tarih {
+        font-size: 0.8rem;
+        color: #95a5a6;
+        margin: 0;
+    }
+
+    .yorum-icerik {
+        color: #555;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .yorum-form-container {
+        background-color: var(--light-color);
+        padding: 25px;
+        border-radius: var(--border-radius);
+        margin-top: 30px;
+    }
+
+    .yorum-form-baslik {
+        color: var(--dark-color);
+        margin-bottom: 15px;
+    }
+
+    .yorum-form textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+        transition: var(--transition);
+    }
+
+        .yorum-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+    .yorum-gonder {
+        padding: 12px 25px;
+        border: none;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 15px;
+        transition: var(--transition);
+    }
+
+        .yorum-gonder:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+    .bos-yorum {
+        text-align: center;
+        color: #95a5a6;
+        padding: 30px;
+        background-color: var(--light-color);
+        border-radius: var(--border-radius);
+    }
+</style>
+
+<div class="urun-detay-container">
+    @if (TempData["PuanMesaj"] != null)
+    {
+        <div class="mesaj">@TempData["PuanMesaj"]</div>
+    }
+
+    <div class="urun-detay">
+        <div class="urun-resim-container">
+            <img src="@Model.ResimUrl" alt="@Model.Ad" class="urun-resim" />
+        </div>
+
+        <div class="urun-bilgi">
+            <h1 class="urun-baslik">@Model.Ad</h1>
+            <p class="urun-fiyat">@Model.Fiyat.ToString("N2") TL</p>
+            <p class="urun-aciklama">@Model.Aciklama</p>
+
+            <div class="urun-meta">
+                <p><i class="fas fa-tag"></i> @Model.KategoriAdi</p>
+                <p><i class="fas fa-store"></i> @Model.MagazaAdi</p>
+                <p><i class="fas fa-box-open"></i> @Model.Stok adet</p>
+            </div>
+
+            <div class="butonlar">
+                <form asp-controller="Sepet" asp-action="Ekle" method="post">
+                    <input type="hidden" name="urunId" value="@Model.Id" />
+                    <button type="submit" class="urun-btn sepete-ekle">
+                        <i class="fas fa-cart-plus"></i> Sepete Ekle
+                    </button>
+                </form>
+
+                <form asp-controller="Urun" asp-action="FavoriEkle" method="post">
+                    <input type="hidden" name="urunId" value="@Model.Id" />
+                    <button type="submit" class="urun-btn favori-ekle">
+                        <i class="fas fa-heart"></i> Favorilere Ekle
+                    </button>
+                </form>
+            </div>
+
+            <div class="puanlama">
+                <h3 class="puanlama-baslik">Ürünü Değerlendir</h3>
+                @if (ViewBag.PuanDağılımı != null)
+                {
+                    @foreach (var puan in ViewBag.PuanDağılımı)
+                    {
+                        <div class="puanlama-sira">
+                            <form asp-action="Puanla" method="post" style="display: inline;">
+                                <input type="hidden" name="urunId" value="@Model.Id" />
+                                <input type="hidden" name="yildiz" value="@puan.Yildiz" />
+                                <button type="submit" class="yildizlar">
+                                    @for (int i = 1; i <= puan.Yildiz; i++)
+                                    {
+                                        <span>★</span>
+                                    }
+                                </button>
+                            </form>
+                            <span class="puan-sayi">(@puan.Sayi kişi)</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Henüz puanlama yok.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="yorumlar-container">
+        <h2 class="yorumlar-baslik">Müşteri Yorumları</h2>
+
+        <div class="yorum-liste">
+            @if (ViewBag.Yorumlar != null && ViewBag.Yorumlar.Count > 0)
+            {
+                @foreach (var yorum in ViewBag.Yorumlar)
+                {
+                    <div class="yorum">
+                        <div class="yorum-kullanici">
+                            <div class="yorum-avatar">
+                                @yorum.Kullanici.AdSoyad.Substring(0, 1)
+                            </div>
+                            <div class="yorum-bilgi">
+                                <p class="yorum-kullanici-ad">@yorum.Kullanici.AdSoyad</p>
+                                <p class="yorum-tarih">@yorum.Tarih.ToString("dd MMMM yyyy")</p>
+                            </div>
+                        </div>
+                        <p class="yorum-icerik">@yorum.Icerik</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="bos-yorum">
+                    <p>Bu ürün için henüz yorum yapılmamış.</p>
+                </div>
+            }
+        </div>
+
+        <div class="yorum-form-container">
+            <h3 class="yorum-form-baslik">Yorum Yap</h3>
+            <form class="yorum-form" asp-action="YorumEkle" method="post">
+                <input type="hidden" name="urunId" value="@Model.Id" />
+                <textarea name="icerik" placeholder="Bu ürün hakkındaki düşünceleriniz..." required></textarea>
+                <button type="submit" class="yorum-gonder">Yorum Gönder</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome ikonları için -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

@@ -1,0 +1,78 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.UrunGorunumModeli>
+
+@{
+    ViewData["Title"] = "Favoriler";
+}
+
+<style>
+    .favori-izgara {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .favori-kart {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        transition: transform 0.2s;
+    }
+
+        .favori-kart:hover {
+            transform: scale(1.05);
+        }
+
+    .favori-resim {
+        max-width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .favori-fiyat {
+        color: #e44d26;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .hata-mesaj {
+        color: #e44d26;
+        padding: 10px;
+        border: 1px solid #e44d26;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
+<h2>Favorilerim</h2>
+
+@if (TempData["Hata"] != null)
+{
+    <div class="hata-mesaj">
+        @TempData["Hata"]
+    </div>
+}
+
+<div class="favori-izgara">
+    @if (Model.Any())
+    {
+        @foreach (var urun in Model)
+        {
+            <div class="favori-kart">
+                <a asp-controller="Urun" asp-action="Detay" asp-route-id="@urun.Id">
+                    <img src="@urun.ResimUrl" alt="@urun.Ad" class="favori-resim" />
+                    <h4>@urun.Ad</h4>
+                    <p class="favori-fiyat">@urun.Fiyat TL</p>
+                    <p>@urun.KategoriAdi - @urun.MagazaAdi</p>
+                </a>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Henüz favorilere eklenmiş ürün yok.</p>
+    }
+</div>

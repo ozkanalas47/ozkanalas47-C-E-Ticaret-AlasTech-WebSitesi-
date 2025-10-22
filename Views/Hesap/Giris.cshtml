@@ -1,0 +1,88 @@
+﻿@model AlasTech.Models.GorunumModelleri.GirisGorunumModeli
+
+@{
+    ViewData["Title"] = "Giriş";
+}
+
+<style>
+    .giris-formu {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+        .giris-formu h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .form-grup {
+        margin-bottom: 15px;
+    }
+
+        .form-grup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-grup input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .giris-buton {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .giris-buton:hover {
+            background-color: #0056b3;
+        }
+
+    .hata-mesaj {
+        color: #dc3545;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="giris-formu">
+    <h2>Giriş Yap</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="hata-mesaj">
+            @Html.ValidationSummary(true)
+        </div>
+    }
+
+    <form asp-controller="Hesap" asp-action="Giris" method="post">
+        <div class="form-grup">
+            <label asp-for="KullaniciAdi">Kullanıcı Adı</label>
+            <input asp-for="KullaniciAdi" />
+            <span asp-validation-for="KullaniciAdi" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Sifre">Şifre</label>
+            <input asp-for="Sifre" type="password" />
+            <span asp-validation-for="Sifre" class="hata-mesaj"></span>
+        </div>
+
+        <button type="submit" class="giris-buton">Giriş Yap</button>
+    </form>
+
+    <p class="text-center mt-3">
+        Hesabınız yok mu? <a asp-controller="Hesap" asp-action="Kayit">Kayıt Ol</a>
+    </p>
+</div>

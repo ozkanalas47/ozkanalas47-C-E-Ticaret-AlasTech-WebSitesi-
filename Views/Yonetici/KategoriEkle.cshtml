@@ -1,0 +1,112 @@
+﻿@model AlasTech.Models.GorunumModelleri.KategoriEkleGorunumModeli
+
+@{
+    ViewData["Title"] = "Kategori Ekle";
+}
+
+<style>
+    .kategori-ekle-form {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-left: 10px;
+        text-decoration: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+
+<h2>Kategori Ekle</h2>
+
+@if (TempData["Mesaj"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mesaj"]
+    </div>
+}
+
+<div class="kategori-ekle-form">
+    <form asp-action="KategoriEkle" asp-controller="Yonetici" method="post">
+        <div class="form-group">
+            <label asp-for="Adi">Kategori Adı</label>
+            <input asp-for="Adi" class="form-control" />
+            <span asp-validation-for="Adi" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UstKategoriId">Üst Kategori (Opsiyonel)</label>
+            <select asp-for="UstKategoriId" class="form-control" asp-items="ViewBag.UstKategoriler">
+                <option value="">Yok</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+            <a asp-action="KontrolPaneli" asp-controller="Yonetici" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

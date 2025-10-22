@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Ödeme";
+}
+
+<style>
+    .odeme-formu {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+        .odeme-formu h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .form-grup {
+        margin-bottom: 15px;
+    }
+
+        .form-grup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-grup input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .odeme-buton {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .odeme-buton:hover {
+            background-color: #218838;
+        }
+</style>
+
+<div class="odeme-formu">
+    <h2>Ödeme</h2>
+
+    <form asp-controller="Siparis" asp-action="OdemeOnay" method="post">
+        <div class="form-grup">
+            <label>Kart Numarası</label>
+            <input type="text" placeholder="1234 5678 9012 3456" readonly />
+        </div>
+
+        <div class="form-grup">
+            <label>Ad Soyad</label>
+            <input type="text" placeholder="Ad Soyad" readonly />
+        </div>
+
+        <div class="form-grup">
+            <label>Son Kullanma Tarihi</label>
+            <input type="text" placeholder="MM/YY" readonly />
+        </div>
+
+        <div class="form-grup">
+            <label>CVV</label>
+            <input type="text" placeholder="123" readonly />
+        </div>
+
+        <button type="submit" class="odeme-buton">Ödemeyi Tamamla</button>
+    </form>
+
+    <p class="text-center mt-3">
+        Bu bir test ödeme formudur. Gerçek ödeme yapılmaz.
+    </p>
+</div>

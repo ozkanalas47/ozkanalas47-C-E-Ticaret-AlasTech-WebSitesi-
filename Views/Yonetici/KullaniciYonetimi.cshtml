@@ -1,0 +1,113 @@
+﻿@model List<AlasTech.Models.Varliklar.Kullanici>
+
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+}
+
+<style>
+    .kullanici-yonetimi {
+        max-width: 1000px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .kullanici-liste {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        .kullanici-liste th, .kullanici-liste td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .kullanici-liste th {
+            background-color: #f8f9fa;
+        }
+
+        .kullanici-liste tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+    .islem-buton {
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .duzenle-buton {
+        background-color: #007bff;
+    }
+
+        .duzenle-buton:hover {
+            background-color: #0056b3;
+        }
+
+    .sil-buton {
+        background-color: #dc3545;
+    }
+
+        .sil-buton:hover {
+            background-color: #c82333;
+        }
+
+    .mesaj {
+        color: #28a745;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .hata-mesaj {
+        color: #dc3545;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="kullanici-yonetimi">
+    <h2>Kullanıcı Yönetimi</h2>
+
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="mesaj">@TempData["Mesaj"]</div>
+    }
+
+    @if (TempData["HataMesaj"] != null)
+    {
+        <div class="hata-mesaj">@TempData["HataMesaj"]</div>
+    }
+
+    <table class="kullanici-liste">
+        <thead>
+            <tr>
+                <th>Kullanıcı Adı</th>
+                <th>E-posta</th>
+                <th>Ad Soyad</th>
+                <th>Rol</th>
+                <th>Mağaza Adı</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kullanici in Model)
+            {
+                <tr>
+                    <td>@kullanici.KullaniciAdi</td>
+                    <td>@kullanici.Eposta</td>
+                    <td>@kullanici.AdSoyad</td>
+                    <td>@kullanici.Rol</td>
+                    <td>@(kullanici.SaticiProfili != null ? kullanici.SaticiProfili.MagazaAdi : "-")</td>
+                    <td>
+                        <a asp-action="KullaniciDuzenle" asp-route-id="@kullanici.Id" class="islem-buton duzenle-buton">Düzenle</a>
+                        <form asp-action="KullaniciSil" asp-route-id="@kullanici.Id" method="post" style="display:inline;">
+                            <button type="submit" class="islem-buton sil-buton" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?')">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,114 @@
+﻿@model AlasTech.Models.GorunumModelleri.KayitGorunumModeli
+
+@{
+    ViewData["Title"] = "Satıcı Ekle";
+}
+
+<style>
+    .satici-ekle-formu {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+        .satici-ekle-formu h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .form-grup {
+        margin-bottom: 15px;
+    }
+
+        .form-grup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-grup input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    .ekle-buton {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .ekle-buton:hover {
+            background-color: #218838;
+        }
+
+    .hata-mesaj {
+        color: #dc3545;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="satici-ekle-formu">
+    <h2>Satıcı Ekle</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="hata-mesaj">
+            @Html.ValidationSummary(true)
+        </div>
+    }
+
+    <form asp-controller="Yonetici" asp-action="SaticiEkle" method="post">
+        <div class="form-grup">
+            <label asp-for="KullaniciAdi">Kullanıcı Adı</label>
+            <input asp-for="KullaniciAdi" />
+            <span asp-validation-for="KullaniciAdi" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Sifre">Şifre</label>
+            <input asp-for="Sifre" type="password" />
+            <span asp-validation-for="Sifre" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Eposta">E-posta</label>
+            <input asp-for="Eposta" type="email" />
+            <span asp-validation-for="Eposta" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="AdSoyad">Ad Soyad</label>
+            <input asp-for="AdSoyad" />
+            <span asp-validation-for="AdSoyad" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="MagazaAdi">Mağaza Adı</label>
+            <input asp-for="MagazaAdi" />
+            <span asp-validation-for="MagazaAdi" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Adres">Adres</label>
+            <input asp-for="Adres" />
+            <span asp-validation-for="Adres" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Telefon">Telefon</label>
+            <input asp-for="Telefon" />
+            <span asp-validation-for="Telefon" class="hata-mesaj"></span>
+        </div>
+
+        <button type="submit" class="ekle-buton">Satıcı Ekle</button>
+    </form>
+</div>

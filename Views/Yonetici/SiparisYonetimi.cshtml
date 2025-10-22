@@ -1,0 +1,58 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.SiparisGorunumModeli>
+
+@{
+    ViewData["Title"] = "Sipariş Yönetimi";
+}
+
+<style>
+    .siparis-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        .siparis-tablosu th, .siparis-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .siparis-tablosu th {
+            background-color: #f8f9fa;
+        }
+
+        .siparis-tablosu a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .siparis-tablosu a:hover {
+                text-decoration: underline;
+            }
+</style>
+
+<h2>Sipariş Yönetimi</h2>
+
+<table class="siparis-tablosu">
+    <thead>
+        <tr>
+            <th>Sipariş ID</th>
+            <th>Tarih</th>
+            <th>Durum</th>
+            <th>Toplam</th>
+            <th>Detay</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var siparis in Model)
+        {
+            <tr>
+                <td>@siparis.Id</td>
+                <td>@siparis.Tarih.ToShortDateString()</td>
+                <td>@siparis.Durum</td>
+                <td>@siparis.Toplam TL</td>
+                <td><a asp-controller="Siparis" asp-action="Detay" asp-route-id="@siparis.Id">Detay</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

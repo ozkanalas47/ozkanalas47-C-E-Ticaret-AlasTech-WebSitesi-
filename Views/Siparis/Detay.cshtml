@@ -1,0 +1,74 @@
+﻿@model AlasTech.Models.GorunumModelleri.SiparisGorunumModeli
+
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+}
+
+<style>
+    .siparis-detay {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .siparis-bilgi {
+        margin-bottom: 30px;
+    }
+
+    .siparis-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        .siparis-tablosu th, .siparis-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .siparis-tablosu th {
+            background-color: #f8f9fa;
+        }
+
+        .siparis-tablosu img {
+            max-width: 50px;
+            height: auto;
+            border-radius: 5px;
+        }
+</style>
+
+<div class="siparis-detay">
+    <h2>Sipariş Detayı (#@Model.Id)</h2>
+
+    <div class="siparis-bilgi">
+        <p><strong>Tarih:</strong> @Model.Tarih.ToShortDateString()</p>
+        <p><strong>Durum:</strong> @Model.Durum</p>
+        <p><strong>Toplam:</strong> @Model.Toplam TL</p>
+    </div>
+
+    <h3>Sipariş Öğeleri</h3>
+    <table class="siparis-tablosu">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Ad</th>
+                <th>Birim Fiyat</th>
+                <th>Miktar</th>
+                <th>Toplam</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kalem in Model.Kalemler)
+            {
+                <tr>
+                    <td><img src="@kalem.ResimUrl" alt="@kalem.UrunAdi" /></td>
+                    <td>@kalem.UrunAdi</td>
+                    <td>@kalem.BirimFiyat TL</td>
+                    <td>@kalem.Miktar</td>
+                    <td>@(kalem.BirimFiyat * kalem.Miktar) TL</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

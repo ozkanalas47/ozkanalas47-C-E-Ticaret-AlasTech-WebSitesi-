@@ -1,0 +1,148 @@
+﻿@model AlasTech.Models.GorunumModelleri.UrunGorunumModeli
+
+@{
+    ViewData["Title"] = "Ürün Düzenle";
+}
+
+<style>
+    .urun-formu {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+        .urun-formu h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .form-grup {
+        margin-bottom: 15px;
+    }
+
+        .form-grup label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-grup input, .form-grup select, .form-grup textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-grup textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-grup input[type="file"] {
+            padding: 5px 0;
+        }
+
+    .urun-resim {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .duzenle-buton {
+        width: 100%;
+        padding: 10px;
+        background-color: #ffc107;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .duzenle-buton:hover {
+            background-color: #e0a800;
+        }
+
+    .hata-mesaj {
+        color: #dc3545;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="urun-formu">
+    <h2>Ürün Düzenle (#@Model.Id)</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="hata-mesaj">
+            @Html.ValidationSummary(true)
+        </div>
+    }
+
+    <form asp-controller="Satici" asp-action="UrunDuzenle" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-grup">
+            <label asp-for="Ad">Ürün Adı</label>
+            <input asp-for="Ad" />
+            <span asp-validation-for="Ad" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Aciklama">Açıklama</label>
+            <textarea asp-for="Aciklama"></textarea>
+            <span asp-validation-for="Aciklama" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Fiyat">Fiyat (TL)</label>
+            <input asp-for="Fiyat" type="number" step="0.01" />
+            <span asp-validation-for="Fiyat" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Stok">Stok Adedi</label>
+            <input asp-for="Stok" type="number" />
+            <span asp-validation-for="Stok" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label>Mevcut Resim</label>
+            @if (!string.IsNullOrEmpty(ViewBag.MevcutResimUrl))
+            {
+                <img src="@ViewBag.MevcutResimUrl" alt="@Model.Ad" class="urun-resim" />
+            }
+            else
+            {
+                <p>Resim yok.</p>
+            }
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="Resim">Yeni Resim Yükle (isteğe bağlı)</label>
+            <input asp-for="Resim" type="file" accept="image/*" />
+            <span asp-validation-for="Resim" class="hata-mesaj"></span>
+        </div>
+
+        <div class="form-grup">
+            <label asp-for="KategoriId">Kategori</label>
+            <select asp-for="KategoriId">
+                <option value="">Kategori Seçin</option>
+                @foreach (var kategori in ViewBag.Kategoriler)
+                {
+                    <option value="@kategori.Id" selected="@(kategori.Id == Model.KategoriId)">@kategori.Adi</option>
+                }
+            </select>
+            <span asp-validation-for="KategoriId" class="hata-mesaj"></span>
+        </div>
+
+        <button type="submit" class="duzenle-buton">Ürünü Güncelle</button>
+    </form>
+
+    <p class="text-center mt-3">
+        <a asp-controller="Satici" asp-action="UrunYonetimi">Geri Dön</a>
+    </p>
+</div>

@@ -1,0 +1,70 @@
+﻿@model AlasTech.Models.GorunumModelleri.UrunGorunumModeli
+
+@{
+    ViewData["Title"] = "Ürün Detayı";
+}
+
+<style>
+    .urun-detay {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .urun-resim {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .urun-bilgi p {
+        margin-bottom: 10px;
+    }
+
+    .urun-fiyat {
+        color: #e44d26;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .geri-buton {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+        .geri-buton:hover {
+            background-color: #0056b3;
+        }
+</style>
+
+<div class="urun-detay">
+    <h2>Ürün Detayı (#@Model.Id)</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.MevcutResimUrl))
+    {
+        <img src="@ViewBag.MevcutResimUrl" alt="@Model.Ad" class="urun-resim" />
+    }
+    else
+    {
+        <p>Resim yok.</p>
+    }
+
+    <div class="urun-bilgi">
+        <p><strong>Ad:</strong> @Model.Ad</p>
+        <p><strong>Açıklama:</strong> @Model.Aciklama</p>
+        <p class="urun-fiyat"><strong>Fiyat:</strong> @Model.Fiyat TL</p>
+        <p><strong>Stok:</strong> @Model.Stok adet</p>
+        <p><strong>Kategori:</strong> @Model.KategoriAdi</p>
+        <p><strong>Mağaza:</strong> @Model.MagazaAdi</p>
+    </div>
+
+    <a asp-controller="Satici" asp-action="UrunYonetimi" class="geri-buton">Geri Dön</a>
+</div>

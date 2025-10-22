@@ -1,0 +1,59 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.UrunGorunumModeli>
+
+@{
+    ViewData["Title"] = "Ürün Yönetimi";
+}
+
+<style>
+    .urun-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        .urun-tablosu th, .urun-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .urun-tablosu th {
+            background-color: #f8f9fa;
+        }
+
+        .urun-tablosu img {
+            max-width: 50px;
+            height: auto;
+            border-radius: 5px;
+        }
+</style>
+
+<h2>Ürün Yönetimi</h2>
+
+<table class="urun-tablosu">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Resim</th>
+            <th>Ad</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Kategori</th>
+            <th>Mağaza</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var urun in Model)
+        {
+            <tr>
+                <td>@urun.Id</td>
+                <td><img src="@urun.ResimUrl" alt="@urun.Ad" /></td>
+                <td>@urun.Ad</td>
+                <td>@urun.Fiyat TL</td>
+                <td>@urun.Stok</td>
+                <td>@urun.KategoriAdi</td>
+                <td>@urun.MagazaAdi</td>
+            </tr>
+        }
+    </tbody>
+</table>

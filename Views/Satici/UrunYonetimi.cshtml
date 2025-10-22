@@ -1,0 +1,133 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.UrunGorunumModeli>
+
+@{
+    ViewData["Title"] = "Ürün Yönetimi (Satıcı)";
+}
+
+<style>
+    .urun-tablosu {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        .urun-tablosu th, .urun-tablosu td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .urun-tablosu th {
+            background-color: #f8f9fa;
+        }
+
+        .urun-tablosu img {
+            max-width: 50px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+    .ekle-buton {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        .ekle-buton:hover {
+            background-color: #218838;
+        }
+
+    .detay-buton, .duzenle-buton, .sil-buton {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    .detay-buton {
+        background-color: #007bff;
+    }
+
+        .detay-buton:hover {
+            background-color: #0056b3;
+        }
+
+    .duzenle-buton {
+        background-color: #ffc107;
+    }
+
+        .duzenle-buton:hover {
+            background-color: #e0a800;
+        }
+
+    .sil-buton {
+        background-color: #dc3545;
+    }
+
+        .sil-buton:hover {
+            background-color: #c82333;
+        }
+
+    .mesaj {
+        color: #28a745;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>Ürünlerim</h2>
+
+@if (TempData["Mesaj"] != null)
+{
+    <div class="mesaj">
+        @TempData["Mesaj"]
+    </div>
+}
+
+<a asp-controller="Satici" asp-action="UrunEkle" class="ekle-buton">Yeni Ürün Ekle</a>
+
+@if (Model.Any())
+{
+    <table class="urun-tablosu">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ad</th>
+                <th>Fiyat</th>
+                <th>Stok</th>
+                <th>Kategori</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var urun in Model)
+            {
+                <tr>
+                    <td>@urun.Id</td>
+                    <td>@urun.Ad</td>
+                    <td>@urun.Fiyat TL</td>
+                    <td>@urun.Stok</td>
+                    <td>@urun.KategoriAdi</td>
+                    <td>
+                        <a asp-controller="Satici" asp-action="UrunDetay" asp-route-id="@urun.Id" class="detay-buton">Detay</a>
+                        <a asp-controller="Satici" asp-action="UrunDuzenle" asp-route-id="@urun.Id" class="duzenle-buton">Düzenle</a>
+                        <form asp-controller="Satici" asp-action="UrunSil" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@urun.Id" />
+                            <button type="submit" class="sil-buton" onclick="return confirm('Bu ürünü silmek istediğinizden emin misiniz?')">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Henüz ürün eklemediniz.</p>
+}

@@ -1,0 +1,95 @@
+﻿@model List<AlasTech.Models.GorunumModelleri.UrunGorunumModeli>
+
+@{
+    ViewData["Title"] = "Arama Sonuçları";
+    string kelime = ViewBag.Kelime;
+    int sayfa = ViewBag.Sayfa;
+    int toplamSayfa = ViewBag.ToplamSayfa;
+}
+
+<style>
+    .urun-izgara {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .urun-kart {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        transition: transform 0.2s;
+    }
+
+        .urun-kart:hover {
+            transform: scale(1.05);
+        }
+
+    .urun-resim {
+        max-width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .urun-fiyat {
+        color: #e44d26;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .sayfalama {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .sayfalama a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .sayfalama a:hover {
+                background-color: #007bff;
+                color: white;
+            }
+
+        .sayfalama .aktif {
+            background-color: #007bff;
+            color: white;
+        }
+</style>
+
+<h2>Arama Sonuçları: "@kelime"</h2>
+
+@if (!Model.Any())
+{
+    <p>Sonuç bulunamadı.</p>
+}
+else
+{
+    <div class="urun-izgara">
+        @foreach (var urun in Model)
+        {
+            <div class="urun-kart">
+                <a asp-controller="Urun" asp-action="Detay" asp-route-id="@urun.Id">
+                    <img src="@urun.ResimUrl" alt="@urun.Ad" class="urun-resim" />
+                    <h4>@urun.Ad</h4>
+                    <p class="urun-fiyat">@urun.Fiyat TL</p>
+                    <p>@urun.KategoriAdi - @urun.MagazaAdi</p>
+                </a>
+            </div>
+        }
+    </div>
+
+    <div class="sayfalama">
+        @for (int i = 1; i <= toplamSayfa; i++)
+        {
+            <a class="@(i == sayfa ? "aktif" : "")" asp-controller="Urun" asp-action="Ara" asp-route-sayfa="@i" asp-route-kelime="@kelime">@i</a>
+        }
+    </div>
+}

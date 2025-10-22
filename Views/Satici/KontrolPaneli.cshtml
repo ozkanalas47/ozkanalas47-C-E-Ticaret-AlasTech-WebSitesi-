@@ -1,0 +1,80 @@
+﻿@model AlasTech.Models.GorunumModelleri.SaticiPanelGorunumModeli
+
+@{
+    ViewData["Title"] = "Satıcı Paneli";
+}
+
+<style>
+    .panel-konteyner {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    .istatistik-kartlari {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .istatistik-kart {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+        .istatistik-kart h4 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .istatistik-kart p {
+            font-size: 24px;
+            color: #007bff;
+        }
+
+    .hizli-eylemler {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+        .hizli-eylemler a {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .hizli-eylemler a:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+<div class="panel-konteyner">
+    <h2>Satıcı Paneli</h2>
+
+    <div class="istatistik-kartlari">
+        <div class="istatistik-kart">
+            <h4>Toplam Ürün</h4>
+            <p>@Model.ToplamUrunSayisi</p>
+        </div>
+        <div class="istatistik-kart">
+            <h4>Toplam Sipariş</h4>
+            <p>@Model.ToplamSiparisSayisi</p>
+        </div>
+        <div class="istatistik-kart">
+            <h4>Toplam Ciro</h4>
+            <p>@Model.ToplamCiro TL</p>
+        </div>
+    </div>
+
+    <div class="hizli-eylemler">
+        <a asp-controller="Satici" asp-action="UrunYonetimi">Ürün Yönetimi</a>
+        <a asp-controller="Satici" asp-action="SiparisYonetimi">Sipariş Yönetimi</a>
+    </div>
+</div>
